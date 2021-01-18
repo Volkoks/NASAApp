@@ -5,17 +5,15 @@ import android.os.Bundle
 import com.example.nasaapp.R
 import com.example.nasaapp.common.Constant.DARK_THEME
 import com.example.nasaapp.common.Constant.LIGHT_THEME
+import com.example.nasaapp.common.Constant.MY_SETTING
 import com.example.nasaapp.common.Constant.RED_THEME
+import com.example.nasaapp.common.Constant.THEME_KEY
 import com.example.nasaapp.ui.main.MainFragment
 import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity : DaggerAppCompatActivity() {
 
-    companion object {
-        private const val MY_SETTING = "mySetting"
-        private const val THEME_KEY = "Theme"
 
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
