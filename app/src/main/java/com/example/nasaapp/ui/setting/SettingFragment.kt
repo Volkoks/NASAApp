@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.R
+import com.example.nasaapp.common.Constant.DARK_THEME
+import com.example.nasaapp.common.Constant.LIGHT_THEME
+import com.example.nasaapp.common.Constant.RED_THEME
 import com.example.nasaapp.ui.activity.MainActivity
 import com.example.nasaapp.utils.ViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -42,9 +45,9 @@ class SettingFragment : DaggerFragment() {
         cg_change_theme.setOnCheckedChangeListener { group, checkedId ->
             val activity = activity as MainActivity
             when (checkedId) {
-                R.id.chip_light_theme -> viewModel.themeState = R.style.LightTheme
-                R.id.chip_dark_theme -> viewModel.themeState = R.style.DarkTheme
-                R.id.chip_red_theme->viewModel.themeState = R.style.RedTheme
+                R.id.chip_light_theme -> viewModel.themeState = LIGHT_THEME
+                R.id.chip_dark_theme -> viewModel.themeState = DARK_THEME
+                R.id.chip_red_theme->viewModel.themeState = RED_THEME
             }
         }
 
