@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.R
 import com.example.nasaapp.common.Constant.DARK_THEME
 import com.example.nasaapp.common.Constant.LIGHT_THEME
+import com.example.nasaapp.common.Constant.MY_SETTING
 import com.example.nasaapp.common.Constant.RED_THEME
+import com.example.nasaapp.common.Constant.THEME_KEY
 import com.example.nasaapp.ui.activity.MainActivity
 import com.example.nasaapp.utils.ViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -22,8 +24,6 @@ class SettingFragment : DaggerFragment() {
 
     companion object {
         fun newInstance() = SettingFragment()
-        private const val MY_SETTING = "mySetting"
-        private const val THEME_KEY = "Theme"
     }
 
     @Inject
