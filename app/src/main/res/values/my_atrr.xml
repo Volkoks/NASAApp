@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="settingTextStyle" format="reference"/>
+    <attr name="mainTextStyleDescription" format="reference"/>
+    <attr name="mainTextStyleTitle" format="reference"/>
 </resources>
