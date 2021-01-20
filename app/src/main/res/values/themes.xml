@@ -39,6 +39,6 @@
     </style>
 
     <style name="TextDarkTheme" parent="TextStyleForSetting">
-        <item name="android:textSize">48dp</item>
+        <item name="android:textSize">48sp</item>
     </style>
 </resources>
