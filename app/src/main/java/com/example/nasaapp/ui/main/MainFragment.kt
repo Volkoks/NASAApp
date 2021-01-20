@@ -9,6 +9,7 @@ import coil.api.load
 import com.example.nasaapp.R
 import com.example.nasaapp.data.MainFragmentState
 import com.example.nasaapp.ui.activity.MainActivity
+import com.example.nasaapp.ui.setting.SettingFragment
 import com.example.nasaapp.utils.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -53,11 +54,11 @@ class MainFragment : DaggerFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.setting_main_menu -> Toast.makeText(
-                context,
-                "ДОЛЖНЫ ОТКРЫТЬСЯ НАСТРОЙКИ!",
-                Toast.LENGTH_SHORT
-            ).show()
+            R.id.setting_main_menu -> {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, SettingFragment.newInstance())?.addToBackStack("Setting")?.commit()
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }
