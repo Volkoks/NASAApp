@@ -1,5 +1,6 @@
 package com.example.nasaapp.ui.yesterday_photo
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,6 +34,7 @@ class YesterdayPhotoViewModel @Inject constructor(
     }
 
 
+    @SuppressLint("SimpleDateFormat")
     private fun getYesterday(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val calendar = Calendar.getInstance()
