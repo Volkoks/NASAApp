@@ -35,11 +35,12 @@ class SettingFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.setting_fragment, container, false)
+        return inflater.inflate(R.layout.setting_fragment_start, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setting_motion.transitionToEnd()
         viewModel = ViewModelProvider(this, viewModelFactory).get(SettingViewModel::class.java)
 
         cg_change_theme.setOnCheckedChangeListener { group, checkedId ->
