@@ -20,16 +20,15 @@ class PhotoOfThePastFragment : DaggerFragment(R.layout.photo_of_the_past_fragmen
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var viewModel: PhotoOfThePastViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(PhotoOfThePastViewModel::class.java)
+    }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel =
-            ViewModelProvider(this, viewModelFactory).get(PhotoOfThePastViewModel::class.java)
         view_pager_earth_fragment.adapter = PhotoOfThePastVPAdapter(this)
         initTabLayoutMediator()
-
     }
 
     private fun initTabLayoutMediator() {
