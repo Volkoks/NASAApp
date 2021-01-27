@@ -16,17 +16,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/textStyleTitleForMain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.example.nasaapp.utils.EquilateralImageView
                 android:id="@+id/image_picture_of_the_day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.100000024"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
                 app:srcCompat="@drawable/ic_baseline_grass_24" />
 
             <WebView
@@ -36,15 +41,12 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_picture_of_the_day" /> />
+                app:layout_constraintTop_toBottomOf="@+id/image_picture_of_the_day" />
+            />
 
             <TextView
                 android:id="@+id/tv_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="100dp"
+                style="?mainTextStyleDescription"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_picture_of_the_day" />

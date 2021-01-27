@@ -7,15 +7,15 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.nasaapp.R
-import com.example.nasaapp.data.MainFragmentState
 import com.example.nasaapp.ui.activity.MainActivity
+import com.example.nasaapp.ui.photo_of_the_past.PhotoOfThePastFragment
 import com.example.nasaapp.ui.setting.SettingFragment
 import com.example.nasaapp.utils.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
 
-class MainFragment : DaggerFragment() {
+class MainFragment : DaggerFragment(R.layout.main_fragment) {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -26,12 +26,16 @@ class MainFragment : DaggerFragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
-    }
+    /**
+     * Закоментированый код чтобы проверить рабатоспособность надувания layout через
+     * конструктор DaggerFragment еслт кроме надувания в onCreateView нечего не происходит
+     */
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        return inflater.inflate(R.layout.main_fragment, container, false)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,16 +62,19 @@ class MainFragment : DaggerFragment() {
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, SettingFragment.newInstance())?.addToBackStack("Setting")?.commit()
             }
-
+            R.id.earth_btn_menu->{
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, PhotoOfThePastFragment.newInstance())?.addToBackStack("Earth")?.commit()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun renderData(data: MainFragmentState) {
+    private fun renderData(data: MainFragmentViewState) {
         when (data) {
-            is MainFragmentState.Success -> {
+            is MainFragmentViewState.Success -> {
                 val dataNASA = data.data
                 val url = dataNASA.url
                 if (url.isNullOrEmpty()) {
@@ -89,12 +96,13 @@ class MainFragment : DaggerFragment() {
                         }
                     }
                 }
+                tv_title.text = dataNASA.title
                 tv_description.text = dataNASA.explanation
             }
-            is MainFragmentState.Error -> {
+            is MainFragmentViewState.Error -> {
                 Toast.makeText(context, "ERROR: ${data.error}", Toast.LENGTH_SHORT).show()
             }
-            is MainFragmentState.Loading -> {
+            is MainFragmentViewState.Loading -> {
 
             }
 

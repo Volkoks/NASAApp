@@ -8,4 +8,6 @@ object Constant {
     const val RED_THEME = R.style.RedTheme
     const val MY_SETTING = "mySetting"
     const val THEME_KEY = "Theme"
+    const val YESTERDAY = "Yesterday"
+    const val BEFORE_YESTERDAY = "Before yesterday"
 }

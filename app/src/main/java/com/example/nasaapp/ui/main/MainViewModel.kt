@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nasaapp.BuildConfig
-import com.example.nasaapp.data.MainFragmentState
 import com.example.nasaapp.data.retrofit.api.INASADataSource
 import com.example.nasaapp.data.retrofit.entity.NASAResponse
 import kotlinx.coroutines.CoroutineScope
@@ -23,20 +22,20 @@ class MainViewModel @Inject constructor(
     override val coroutineContext: CoroutineContext by lazy {
         Dispatchers.IO
     }
-    private val liveDataForViewToObserve: MutableLiveData<MainFragmentState> = MutableLiveData()
+    private val liveDataForViewToObserve: MutableLiveData<MainFragmentViewState> = MutableLiveData()
 
 
-    fun getData(): LiveData<MainFragmentState> {
+    fun getData(): LiveData<MainFragmentViewState> {
         sendServerRequest()
         return liveDataForViewToObserve
     }
 
     private fun sendServerRequest() {
-        liveDataForViewToObserve.value = MainFragmentState.Loading(null)
+        liveDataForViewToObserve.value = MainFragmentViewState.Loading(null)
         val apiKey: String = BuildConfig.NASA_API_KEY
         launch {
             if (apiKey.isBlank()) {
-                MainFragmentState.Error(Throwable("Нет ключа"))
+                MainFragmentViewState.Error(Throwable("Нет ключа"))
             } else {
                 retrofit.getPictureOfTheDay(apiKey).enqueue(object : Callback<NASAResponse> {
                     override fun onResponse(
@@ -45,21 +44,21 @@ class MainViewModel @Inject constructor(
                     ) {
                         if (response.isSuccessful && response.body() != null) {
                             liveDataForViewToObserve.value =
-                                MainFragmentState.Success(response.body()!!)
+                                MainFragmentViewState.Success(response.body()!!)
                         } else {
                             val messageError = response.message()
                             if (messageError.isNullOrEmpty()) {
                                 liveDataForViewToObserve.value =
-                                    MainFragmentState.Error(Throwable("Неопознаная ошибка"))
+                                    MainFragmentViewState.Error(Throwable("Неопознаная ошибка"))
                             } else {
                                 liveDataForViewToObserve.value =
-                                    MainFragmentState.Error(Throwable(messageError))
+                                    MainFragmentViewState.Error(Throwable(messageError))
                             }
                         }
                     }
 
                     override fun onFailure(call: Call<NASAResponse>, t: Throwable) {
-                        liveDataForViewToObserve.value = MainFragmentState.Error(t)
+                        liveDataForViewToObserve.value = MainFragmentViewState.Error(t)
                     }
 
                 })
