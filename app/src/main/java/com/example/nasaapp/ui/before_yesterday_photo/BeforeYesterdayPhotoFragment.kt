@@ -18,11 +18,10 @@ class BeforeYesterdayPhotoFragment : DaggerFragment(R.layout.before_yesterday_ph
     }
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: BeforeYesterdayPhotoViewModel
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this,viewModelFactory).get(BeforeYesterdayPhotoViewModel::class.java)
+    private val viewModel by lazy {
+        ViewModelProvider(this,viewModelFactory).get(BeforeYesterdayPhotoViewModel::class.java)
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -29,7 +29,9 @@ class SettingFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var viewModel: SettingViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(SettingViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +43,7 @@ class SettingFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setting_motion.transitionToEnd()
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SettingViewModel::class.java)
-
         cg_change_theme.setOnCheckedChangeListener { group, checkedId ->
-            val activity = activity as MainActivity
             when (checkedId) {
                 R.id.chip_light_theme -> viewModel.themeState = LIGHT_THEME
                 R.id.chip_dark_theme -> viewModel.themeState = DARK_THEME
@@ -54,7 +53,7 @@ class SettingFragment : DaggerFragment() {
 
         fab_save_setting.setOnClickListener {
             context?.getSharedPreferences(MY_SETTING,Context.MODE_PRIVATE)!!.edit {
-                viewModel?.themeState?.let { it1 -> this.putInt(THEME_KEY, it1) }
+                viewModel.themeState?.let { it1 -> this.putInt(THEME_KEY, it1) }
             }
             activity?.recreate()
             }

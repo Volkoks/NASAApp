@@ -24,7 +24,9 @@ class MainFragment : DaggerFragment(R.layout.main_fragment) {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+    }
 
     /**
      * Закоментированый код чтобы проверить рабатоспособность надувания layout через
@@ -39,8 +41,6 @@ class MainFragment : DaggerFragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-
         val context = activity as MainActivity
         context.setSupportActionBar(view.findViewById(R.id.bottomAppBar))
         setHasOptionsMenu(true)
