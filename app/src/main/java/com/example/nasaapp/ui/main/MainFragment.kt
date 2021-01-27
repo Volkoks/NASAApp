@@ -1,5 +1,8 @@
 package com.example.nasaapp.ui.main
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
@@ -17,6 +20,8 @@ import javax.inject.Inject
 
 class MainFragment : DaggerFragment(R.layout.main_fragment) {
 
+    private var statePressedFAB = false
+
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -28,19 +33,10 @@ class MainFragment : DaggerFragment(R.layout.main_fragment) {
         ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
-    /**
-     * Закоментированый код чтобы проверить рабатоспособность надувания layout через
-     * конструктор DaggerFragment еслт кроме надувания в onCreateView нечего не происходит
-     */
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        return inflater.inflate(R.layout.main_fragment, container, false)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setClickFAB()
         val context = activity as MainActivity
         context.setSupportActionBar(view.findViewById(R.id.bottomAppBar))
         setHasOptionsMenu(true)
@@ -49,6 +45,11 @@ class MainFragment : DaggerFragment(R.layout.main_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        statePressedFAB = false
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,11 +61,13 @@ class MainFragment : DaggerFragment(R.layout.main_fragment) {
         when (item.itemId) {
             R.id.setting_main_menu -> {
                 activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, SettingFragment.newInstance())?.addToBackStack("Setting")?.commit()
+                    ?.replace(R.id.container, SettingFragment.newInstance())
+                    ?.addToBackStack("Setting")?.commit()
             }
-            R.id.earth_btn_menu->{
+            R.id.earth_btn_menu -> {
                 activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, PhotoOfThePastFragment.newInstance())?.addToBackStack("Earth")?.commit()
+                    ?.replace(R.id.container, PhotoOfThePastFragment.newInstance())
+                    ?.addToBackStack("Earth")?.commit()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -107,6 +110,45 @@ class MainFragment : DaggerFragment(R.layout.main_fragment) {
             }
 
         }
+    }
+
+
+    private fun setClickFAB(){
+        floatingActionButton.setOnClickListener {
+            if (statePressedFAB){
+               deactivePressedFAB()
+            }else{
+                activePressedFAB()
+            }
+        }
+
+    }
+
+    private fun activePressedFAB(){
+        statePressedFAB = true
+        ObjectAnimator.ofFloat(setting_btn_container,"translationY",-250f).start()
+        ObjectAnimator.ofFloat(setting_btn_container,"translationX",150f).start()
+
+        setting_btn_container.animate()
+            .alpha(1f)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    setting_menu_btn.setOnClickListener {
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.container, SettingFragment.newInstance())
+                            ?.addToBackStack("Setting")?.commit()
+                    }
+                }
+
+            })
+    }
+    private fun deactivePressedFAB(){
+        statePressedFAB = false
+        ObjectAnimator.ofFloat(setting_btn_container,"translationY",0f).start()
+        ObjectAnimator.ofFloat(setting_btn_container,"translationX",0f).start()
+
+        setting_btn_container.animate()
+            .alpha(0f)
     }
 
 }
