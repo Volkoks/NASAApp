@@ -66,9 +66,10 @@ class TestRVViewModel @Inject constructor(
                     call: Call<APODResponse>,
                     response: Response<APODResponse>
                 ) {
-                    val title = response.body()?.title
-                    title?.let { DataForRecyclerView(FLAG_APOD, it) }?.let { data.add(it) }
-                    dataForItem.value = title?.let { DataForRecyclerView(FLAG_APOD, it) }
+                    val apod = response.body()
+                    dataForItem.value = apod?.let {
+                        DataForRecyclerView(FLAG_APOD, it.title, it.url)
+                    }
 
 
                 }
@@ -87,7 +88,7 @@ class TestRVViewModel @Inject constructor(
                     call: Call<MainProjects>,
                     response: Response<MainProjects>
                 ) {
-                    response.body()?.projects?.id?.let { getProject(it) }
+
                 }
 
                 override fun onFailure(call: Call<MainProjects>, t: Throwable) {
@@ -100,16 +101,23 @@ class TestRVViewModel @Inject constructor(
 
     private fun getProject(id: String) {
         launch {
-            retrofit.getProject(id, api).enqueue(object : Callback<FullInfoProject> {
+            retrofit.getProject(id, api).enqueue(object : Callback<MainProjects> {
+
                 override fun onResponse(
-                    call: Call<FullInfoProject>,
-                    response: Response<FullInfoProject>
+                    call: Call<MainProjects>,
+                    response: Response<MainProjects>
                 ) {
-                    val data = response.body()
+                    val project = response.body()?.project
+                    dataForItem.value = project?.let {
+                        DataForRecyclerView(
+                            FLAG_TECHPORT,
+                            it.title, startData = it.startDate, endData = it.endDate
+                        )
+                    }
 
                 }
 
-                override fun onFailure(call: Call<FullInfoProject>, t: Throwable) {
+                override fun onFailure(call: Call<MainProjects>, t: Throwable) {
                     TODO("Not yet implemented")
                 }
 

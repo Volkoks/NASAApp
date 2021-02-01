@@ -22,5 +22,5 @@ interface INASADataSource {
     fun getProjects(@Query("api_key") apiKey: String) : Call<MainProjects>
 
     @GET("techport/api/projects/{id}?")
-    fun getProject(@Path("id")id:String, @Query("api_key") apiKey: String): Call<FullInfoProject>
+    fun getProject(@Path("id")id:String, @Query("api_key") apiKey: String): Call<MainProjects>
 }

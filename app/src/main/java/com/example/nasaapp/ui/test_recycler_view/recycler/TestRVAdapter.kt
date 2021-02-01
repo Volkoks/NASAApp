@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.example.nasaapp.R
 import com.example.nasaapp.common.Constant.FLAG_APOD
 import com.example.nasaapp.common.Constant.FLAG_HEADING
@@ -57,11 +58,14 @@ class TestRVAdapter(
         notifyItemInserted(itemCount - 1)
     }
 
+
+
     inner class APODViewHolder(override val containerView: View) : BaseViewHolder(containerView),
         LayoutContainer {
 
         override fun bind(data: DataForRecyclerView) {
             itemView.tv_title_item_apod.text = data.title
+            itemView.image_picture_of_the_day_rv.load(data.url)
         }
     }
 
@@ -70,6 +74,8 @@ class TestRVAdapter(
 
         override fun bind(data: DataForRecyclerView) {
             itemView.tv_title_item_techport.text = data.title
+            itemView.tv_start_data_item_techport.text = "START DATE: ${data.startData}"
+            itemView.tv_end_data_item_techport.text = "END DATE: ${data.endData}"
         }
     }
 
@@ -77,6 +83,7 @@ class TestRVAdapter(
         LayoutContainer {
         override fun bind(data: DataForRecyclerView) {
             itemView.tv_heading_rv.text = data.title
+
         }
 
     }

@@ -26,12 +26,6 @@ class TestRVFragment : DaggerFragment(R.layout.test_r_v_fragment) {
     }
     private lateinit var adapter: TestRVAdapter
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.initHeading()
