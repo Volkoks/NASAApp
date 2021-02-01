@@ -2,7 +2,7 @@ package com.example.nasaapp.data.retrofit.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class NASAResponse(
+data class APODResponse(
     @field:SerializedName("copyright") val copyright: String?,
     @field:SerializedName("date") val date: String?,
     @field:SerializedName("explanation") val explanation: String?,

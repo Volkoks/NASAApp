@@ -7,6 +7,7 @@ import com.example.nasaapp.ui.photo_of_the_past.PhotoOfThePastViewModel
 import com.example.nasaapp.ui.yesterday_photo.YesterdayPhotoViewModel
 import com.example.nasaapp.ui.main.MainViewModel
 import com.example.nasaapp.ui.setting.SettingViewModel
+import com.example.nasaapp.ui.test_recycler_view.TestRVViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -37,4 +38,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BeforeYesterdayPhotoViewModel::class)
     abstract fun bindBeforeYesterdayPhotoViewModel(viewModel: BeforeYesterdayPhotoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TestRVViewModel::class)
+    abstract fun bindTestRVViewModel(viewModel: TestRVViewModel): ViewModel
 }

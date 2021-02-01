@@ -5,4 +5,7 @@
     <string name="dark">Dark</string>
     <string name="red">Red</string>
     <string name="setting">setting</string>
+    <string name="heading">Heading</string>
+    <string name="apod">ADD APOD</string>
+    <string name="techport">ADD TECHPORT</string>
 </resources>

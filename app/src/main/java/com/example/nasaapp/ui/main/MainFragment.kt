@@ -13,6 +13,7 @@ import com.example.nasaapp.R
 import com.example.nasaapp.ui.activity.MainActivity
 import com.example.nasaapp.ui.photo_of_the_past.PhotoOfThePastFragment
 import com.example.nasaapp.ui.setting.SettingFragment
+import com.example.nasaapp.ui.test_recycler_view.TestRVFragment
 import com.example.nasaapp.utils.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -129,13 +130,14 @@ class MainFragment : DaggerFragment(R.layout.main_fragment) {
         ObjectAnimator.ofFloat(setting_btn_container,"translationY",-250f).start()
         ObjectAnimator.ofFloat(setting_btn_container,"translationX",150f).start()
 
+        @Suppress("UNSAFE_CALL_ON_PARTIALLY_DEFINED_RESOURCE")
         setting_btn_container.animate()
             .alpha(1f)
             .setListener(object : AnimatorListenerAdapter(){
                 override fun onAnimationEnd(animation: Animator?) {
                     setting_menu_btn.setOnClickListener {
                         activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.container, SettingFragment.newInstance())
+                            ?.replace(R.id.container, TestRVFragment.newInstance())
                             ?.addToBackStack("Setting")?.commit()
                     }
                 }
