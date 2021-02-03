@@ -3,10 +3,13 @@ package com.example.nasaapp.ui.test_recycler_view
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nasaapp.R
 import com.example.nasaapp.common.Constant.FLAG_APOD
 import com.example.nasaapp.common.Constant.FLAG_TECHPORT
+import com.example.nasaapp.data.recycler.DataForRecyclerView
+import com.example.nasaapp.ui.recycler.ItemTouchHelperCallback
 import com.example.nasaapp.ui.test_recycler_view.recycler.TestRVAdapter
 import com.example.nasaapp.utils.ViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -30,10 +33,7 @@ class TestRVFragment : DaggerFragment(R.layout.test_r_v_fragment) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.initHeading()
         viewModel.dataForRecyclerView.observe(viewLifecycleOwner, {
-            adapter = TestRVAdapter(it)
-            rv_apod_and_techport.adapter = adapter
-            rv_apod_and_techport.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            initRV(it)
         })
 
         viewModel.dataForItem.observe(viewLifecycleOwner, {
@@ -47,6 +47,15 @@ class TestRVFragment : DaggerFragment(R.layout.test_r_v_fragment) {
             viewModel.getData(FLAG_APOD)
         }
 
+    }
+
+    private fun initRV(it: MutableList<DataForRecyclerView>) {
+        adapter = TestRVAdapter(it)
+        rv_apod_and_techport.adapter = adapter
+        rv_apod_and_techport.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        ItemTouchHelper(ItemTouchHelperCallback(adapter))
+            .attachToRecyclerView(rv_apod_and_techport)
     }
 
 }

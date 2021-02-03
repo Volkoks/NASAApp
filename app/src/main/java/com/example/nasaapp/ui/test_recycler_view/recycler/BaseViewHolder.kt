@@ -6,4 +6,6 @@ import com.example.nasaapp.data.recycler.DataForRecyclerView
 
 abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     abstract fun bind(data: DataForRecyclerView)
+
+
 }
