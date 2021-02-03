@@ -36,9 +36,9 @@ class TestRVViewModel @Inject constructor(
 
     private val api: String = BuildConfig.NASA_API_KEY
 
-    private var data = arrayListOf(
-        DataForRecyclerView(FLAG_HEADING, "Heading")
-    )
+    private var data = arrayListOf<DataForRecyclerView>()
+
+
 
     private lateinit var localData: DataForRecyclerView
 
