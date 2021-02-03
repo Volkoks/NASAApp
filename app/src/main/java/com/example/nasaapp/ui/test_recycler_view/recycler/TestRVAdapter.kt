@@ -91,7 +91,7 @@ class TestRVAdapter(
     }
 
     inner class TechportViewHolder(override val containerView: View) :
-        BaseViewHolder(containerView), LayoutContainer {
+        BaseViewHolder(containerView), LayoutContainer,ItemTouchHelperViewHolder {
 
         override fun bind(data: DataForRecyclerView) {
             itemView.tv_title_item_techport.text = data.title
