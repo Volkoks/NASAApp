@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nasaapp.BuildConfig
 import com.example.nasaapp.data.retrofit.api.INASADataSource
-import com.example.nasaapp.data.retrofit.entity.NASAResponse
+import com.example.nasaapp.data.retrofit.entity.APODResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,17 +49,17 @@ class BeforeYesterdayPhotoViewModel @Inject constructor(
                 BeforeYesterdayViewState.Error(Throwable("Нет ключа"))
             } else {
                 retrofit.getPictureByDate(apiKey, getYesterday())
-                    .enqueue(object : Callback<NASAResponse> {
+                    .enqueue(object : Callback<APODResponse> {
                         override fun onResponse(
-                            call: Call<NASAResponse>,
-                            response: Response<NASAResponse>
+                            call: Call<APODResponse>,
+                            response: Response<APODResponse>
                         ) {
                             liveDataForViewToObserve.value = response.body()?.let {
                                 BeforeYesterdayViewState.Success(it)
                             }
                         }
 
-                        override fun onFailure(call: Call<NASAResponse>, t: Throwable) {
+                        override fun onFailure(call: Call<APODResponse>, t: Throwable) {
                             liveDataForViewToObserve.value = BeforeYesterdayViewState.Error(t)
                         }
                     })

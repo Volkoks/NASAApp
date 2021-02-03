@@ -4,6 +4,7 @@ import com.example.nasaapp.ui.before_yesterday_photo.BeforeYesterdayPhotoFragmen
 import com.example.nasaapp.ui.photo_of_the_past.PhotoOfThePastFragment
 import com.example.nasaapp.ui.main.MainFragment
 import com.example.nasaapp.ui.setting.SettingFragment
+import com.example.nasaapp.ui.test_recycler_view.TestRVFragment
 import com.example.nasaapp.ui.yesterday_photo.YesterdayPhotoFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -25,5 +26,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeBeforeYesterdayPhotoFragment(): BeforeYesterdayPhotoFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeTestRVFragment(): TestRVFragment
 
 }

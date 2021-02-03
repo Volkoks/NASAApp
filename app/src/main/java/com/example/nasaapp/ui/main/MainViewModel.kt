@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nasaapp.BuildConfig
 import com.example.nasaapp.data.retrofit.api.INASADataSource
-import com.example.nasaapp.data.retrofit.entity.NASAResponse
+import com.example.nasaapp.data.retrofit.entity.APODResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,10 +37,10 @@ class MainViewModel @Inject constructor(
             if (apiKey.isBlank()) {
                 MainFragmentViewState.Error(Throwable("Нет ключа"))
             } else {
-                retrofit.getPictureOfTheDay(apiKey).enqueue(object : Callback<NASAResponse> {
+                retrofit.getPictureOfTheDay(apiKey).enqueue(object : Callback<APODResponse> {
                     override fun onResponse(
-                        call: Call<NASAResponse>,
-                        response: Response<NASAResponse>
+                        call: Call<APODResponse>,
+                        response: Response<APODResponse>
                     ) {
                         if (response.isSuccessful && response.body() != null) {
                             liveDataForViewToObserve.value =
@@ -57,7 +57,7 @@ class MainViewModel @Inject constructor(
                         }
                     }
 
-                    override fun onFailure(call: Call<NASAResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<APODResponse>, t: Throwable) {
                         liveDataForViewToObserve.value = MainFragmentViewState.Error(t)
                     }
 
